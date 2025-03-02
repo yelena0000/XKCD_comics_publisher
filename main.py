@@ -28,9 +28,10 @@ def get_random_xkcd_comic():
 
     response = requests.get(random_comic_url)
     response.raise_for_status()
+    comic_content = response.json()
 
-    comic_image_url = response.json()['img']
-    comic_caption = response.json()['alt']
+    comic_image_url = comic_content['img']
+    comic_caption = comic_content['alt']
 
     filename = os.path.basename(urlparse(comic_image_url).path)
     download_image(comic_image_url, filename)
